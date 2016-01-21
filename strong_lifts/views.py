@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
 
 
 def index(request):
@@ -7,5 +8,9 @@ def index(request):
 def register(request):
     return render(request, 'strong_lifts/register.html')
 
-def login(request):
+def login_user(request):
     return render(request, 'strong_lifts/login.html')
+
+def logout_user(request):
+    logout(request)
+    # todo - add redirect here
