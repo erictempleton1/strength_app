@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
 
 
 def index(request):
-    return HttpResponse('Hello, this is an app.')
+    template = loader.get_template('strong_lifts/index.html')
+    return HttpResponse(template.render(request))
