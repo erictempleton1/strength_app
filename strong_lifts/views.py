@@ -9,6 +9,9 @@ from forms import RegisterForm, LoginForm
 def index(request):
     return render(request, 'strong_lifts/index.html')
 
+def user_page(request, username):
+    return render(request, 'strong_lifts/user_page.html')
+
 def register_user(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
