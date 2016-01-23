@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from django.utils import timezone
 
 class StrongLifts(models.Model):
-    added_date = models.DateTimeField(auto_now_add=True, blank=True)
+    add_at = models.DateField()
     exercise_name = models.CharField(max_length=200)
     exercise_set = models.IntegerField(default=0)
     exercise_rep = models.IntegerField(default=0)
