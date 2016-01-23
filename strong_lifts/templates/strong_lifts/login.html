@@ -6,4 +6,10 @@
 
 <h3>Login</h3>
 
+<form action="/stronglifts/login/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+  <input type="submit" value="Login" />
+</form>
+
 {% endblock %}
