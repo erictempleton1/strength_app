@@ -8,6 +8,14 @@
 
     <h3>Strong Lifts App</h3>
 
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.email }}</p>
+        <p><a href="{% url 'stronglifts:logout_user' %}">Logout</a></p>
+    {% else %}
+        <p><a href="{% url 'stronglifts:register_user' %}">Register</a></p>
+        <p><a href="{% url 'stronglifts:login_user'%}">Login</a></p>
+    {% endif %}
+
     {% block body %}{% endblock %}
 
     </body>
