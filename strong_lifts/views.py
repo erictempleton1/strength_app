@@ -1,16 +1,28 @@
-from django.shortcuts import render, render_to_response
-from django.contrib.auth.models import User
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
-from forms import RegisterForm, LoginForm
+from models import StrongLifts
+from forms import RegisterForm, LoginForm, StrongLiftsForm
 
 
 def index(request):
     return render(request, 'strong_lifts/index.html')
 
 def user_page(request, username):
-    return render(request, 'strong_lifts/user_page.html')
+    if request.method == 'POST':
+        form = StrongLiftsForm(request.POST)
+        if form.is_valid():
+            exercise_name = form.cleaned_data['exercise_name']
+            exercise_sets = form.cleaned_data['exercise_sets']
+            exercise_reps = form.cleaned_data['exercise_reps']
+            exercise_weight = form.cleaned_data['exercise_weight']
+
+            # todo add save logic here
+            return HttpResponseRedirect('/stronglifts')
+    else:
+        form = StrongLiftsForm()
+    return render(request, 'strong_lifts/user_page.html', {'form': form})
 
 def register_user(request):
     if request.method == 'POST':
