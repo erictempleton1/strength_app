@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 
 from models import StrongLifts
@@ -10,9 +11,13 @@ def index(request):
     return render(request, 'strong_lifts/index.html')
 
 def user_page(request, username):
+    # check that user exists
+    get_user = get_object_or_404(User, username=username)
+
     if request.method == 'POST':
         form = StrongLiftsForm(request.POST)
         if form.is_valid():
+            # get form data
             exercise_name = form.cleaned_data['exercise_name']
             exercise_sets = form.cleaned_data['exercise_sets']
             exercise_reps = form.cleaned_data['exercise_reps']
