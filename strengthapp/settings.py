@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'strengthapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'strengthapp',
+        'NAME': 'strength_app',
         'USER': 'strengthadmin',
         'PASSWORD': 'strengthadmin',
         'HOST': 'localhost',

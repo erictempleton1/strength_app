@@ -9,7 +9,7 @@ __pycache__/
 *.db
 db.sqlite3
 
-strengthapp/settings.py
+settings.py
 
 # Distribution / packaging
 .Python
