@@ -9,7 +9,7 @@
     <h3>Strong Lifts App</h3>
 
     {% if user.is_authenticated %}
-        <p>Hello, {{ user.email }}</p>
+        <p>Hello, {{ user.username }}</p>
         <p><a href="{% url 'stronglifts:logout_user' %}">Logout</a></p>
     {% else %}
         <p><a href="{% url 'stronglifts:register_user' %}">Register</a></p>

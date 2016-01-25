@@ -12,7 +12,7 @@ def index(request):
 
 def user_page(request, username):
     # check that user exists
-    get_user = get_object_or_404(User, username=username)
+    get_user_activity = StrongLifts.objects.filter(user__username=username)
 
     if request.method == 'POST':
         form = StrongLiftsForm(request.POST)
@@ -27,7 +27,12 @@ def user_page(request, username):
             return HttpResponseRedirect('/stronglifts')
     else:
         form = StrongLiftsForm()
-    return render(request, 'strong_lifts/user_page.html', {'form': form})
+    return render(request, 'strong_lifts/user_page.html',
+                  context={
+                      'form': form,
+                      'get_user_activity': get_user_activity
+                    }
+                  )
 
 def register_user(request):
     if request.method == 'POST':
