@@ -4,7 +4,20 @@
 
 {% block body %}
 
-<h3>User Page</h3>
+<h3>User Page - {{ user.username }}</h3>
+
+<h4>Last Workouts</h4>
+{% for activity in get_user_activity %}
+    <p>
+        Exercise name: {{ activity.exercise_name }} | Weight: {{ activity.exercise_weight }} |
+        Sets: {{ activity.exercise_sets }} | Reps: {{ activity.exercise_reps }} |
+        Date: {{ activity.add_at|date:"SHORT_DATE_FORMAT" }}
+    </p>
+{% empty %}
+    <p>No activities found</p>
+{% endfor %}
+
+
 
 <form action="" method="post">
     {% csrf_token %}

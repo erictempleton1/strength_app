@@ -12,6 +12,9 @@ def index(request):
 
 def user_page(request, username):
     # check that user exists
+    get_object_or_404(User, username=username)
+
+    # get user activities if they do exist
     get_user_activity = StrongLifts.objects.filter(user__username=username)
 
     if request.method == 'POST':
