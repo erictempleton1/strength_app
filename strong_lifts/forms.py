@@ -19,10 +19,20 @@ class LoginForm(forms.Form):
 
 
 class StrongLiftsForm(forms.ModelForm):
-    exercise_name = forms.CharField(required=True)
+    ex_options = [
+        ('Squat', 'Squat'),
+        ('Bench Press', 'Bench Press'),
+        ('Row', 'Row'),
+        ('Deadlift', 'Deadlift'),
+        ('OH Press', 'OH Press')
+    ]
+
     exercise_weight = forms.IntegerField(required=True)
     exercise_reps = forms.IntegerField(required=True)
     exercise_sets = forms.IntegerField(required=True)
+    exercise_name = forms.MultipleChoiceField(widget=forms.SelectMultiple,
+                                              required=True,
+                                              choices=ex_options)
 
     class Meta:
         model = StrongLifts
