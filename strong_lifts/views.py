@@ -26,8 +26,13 @@ def user_page(request, username):
             exercise_reps = form.cleaned_data['exercise_reps']
             exercise_weight = form.cleaned_data['exercise_weight']
 
-            # todo add save logic here
-            return HttpResponseRedirect('/stronglifts')
+            new_workout = StrongLifts(exercise_name=exercise_name,
+                                      exercise_sets=exercise_sets,
+                                      exercise_reps=exercise_reps,
+                                      exercise_weight=exercise_weight,
+                                      user=request.user)
+            new_workout.save()
+            return HttpResponseRedirect('/stronglifts/u/{0}'.format(request.user.username))
     else:
         form = StrongLiftsForm()
     return render(request, 'strong_lifts/user_page.html',
