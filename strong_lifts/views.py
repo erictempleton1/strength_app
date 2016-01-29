@@ -38,7 +38,8 @@ def user_page(request, username):
     return render(request, 'strong_lifts/user_page.html',
                   context={
                       'form': form,
-                      'get_user_activity': get_user_activity
+                      'get_user_activity': get_user_activity,
+                      'username': username
                     }
                   )
 
