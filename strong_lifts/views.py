@@ -10,6 +10,7 @@ from forms import RegisterForm, LoginForm, StrongLiftsForm
 def index(request):
     return render(request, 'strong_lifts/index.html')
 
+# todo - hide form for users not the profile owner
 def user_page(request, username):
     # check that user exists
     get_object_or_404(User, username=username)
