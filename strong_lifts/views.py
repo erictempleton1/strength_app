@@ -11,6 +11,8 @@ def index(request):
     return render(request, 'strong_lifts/index.html')
 
 # todo - hide form for users not the profile owner
+# todo - add last workout date check and next workout calculation
+# todo make form more intuitive
 def user_page(request, username):
     # check that user exists
     get_object_or_404(User, username=username)
