@@ -30,7 +30,7 @@ class StrongLiftsForm(forms.ModelForm):
     exercise_weight = forms.IntegerField(required=True)
     exercise_reps = forms.IntegerField(required=True)
     exercise_sets = forms.IntegerField(required=True)
-    exercise_name = forms.MultipleChoiceField(widget=forms.SelectMultiple,
+    exercise_name = forms.ChoiceField(widget=forms.Select,
                                               required=True,
                                               choices=ex_options)
 
