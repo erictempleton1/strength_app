@@ -45,6 +45,47 @@ def user_page(request, username):
                     }
                   )
 
+def update_exercise(request, username, exercise_id):
+    # check that user and exercise exists
+    user_obj = get_object_or_404(User, username=username)
+
+    # get the exercise object and make sure it belongs to the user
+    exercise_edit = get_object_or_404(StrongLifts, id=exercise_id, user=user_obj)
+
+    if request.method == 'POST':
+        form = StrongLiftsForm(request.POST,
+                initial={
+                    'exercise_name': exercise_edit.exercise_name,
+                    'exercise_weight': exercise_edit.exercise_weight,
+                    'exercise_sets': exercise_edit.exercise_sets,
+                    'exercise_reps': exercise_edit.exercise_reps
+                }
+        )
+        if form.is_valid():
+            exercise_edit.exercise_name = form.cleaned_data['exercise_name']
+            exercise_edit.exercise_sets = form.cleaned_data['exercise_sets']
+            exercise_edit.exercise_reps = form.cleaned_data['exercise_reps']
+            exercise_edit.exercise_weight = form.cleaned_data['exercise_weight']
+            exercise_edit.save()
+            return HttpResponseRedirect('/stronglifts/u/{0}'.format(request.user.username))
+    else:
+        form = StrongLiftsForm(
+                initial={
+                    'exercise_weight': exercise_edit.exercise_weight,
+                    'exercise_sets': exercise_edit.exercise_sets,
+                    'exercise_reps': exercise_edit.exercise_reps,
+                    'exercise_name': exercise_edit.exercise_name
+                }
+        )
+    return render(request, 'strong_lifts/update_exercise.html',
+                  context={
+                        'form': form,
+                        'exercise_edit': exercise_edit,
+                        'username': username,
+                        'exercise_id': exercise_id
+                    }
+                  )
+
 def register_user(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)

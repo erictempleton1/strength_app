@@ -36,4 +36,4 @@ class StrongLiftsForm(forms.ModelForm):
 
     class Meta:
         model = StrongLifts
-        fields = ('exercise_name', 'exercise_weight', 'exercise_reps', 'exercise_reps')
+        fields = ('exercise_name', 'exercise_weight', 'exercise_sets', 'exercise_reps')
