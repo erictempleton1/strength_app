@@ -6,10 +6,17 @@
 
 <h3>User Page - {{ username }}</h3>
 
+{% if username == user.username %}
+<h4>Add Exercise</h4>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+  <input type="submit" value="Save" />
+</form>
+
 <h4>Last Workouts</h4>
 
-{% if username == user.username %}
-{% for activity in get_user_activity|slice:"-5" %}
+{% for activity in get_user_activity %}
     <p>
         Exercise name: {{ activity.exercise_name }} | Weight: {{ activity.exercise_weight }} |
         Sets: {{ activity.exercise_sets }} | Reps: {{ activity.exercise_reps }} |
@@ -20,13 +27,9 @@
     <p>No activities found</p>
 {% endfor %}
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-  <input type="submit" value="Save" />
-</form>
 
 {% else %}
+<h4>Last Workouts</h4>
 {% for activity in get_user_activity|slice:":5" %}
     <p>
         Exercise name: {{ activity.exercise_name }} | Weight: {{ activity.exercise_weight }} |
