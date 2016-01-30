@@ -7,7 +7,7 @@
 <h3>User Page - {{ username }}</h3>
 
 <h4>Last Workouts</h4>
-{% for activity in get_user_activity %}
+{% for activity in get_user_activity|slice:":5" %}
     <p>
         Exercise name: {{ activity.exercise_name }} | Weight: {{ activity.exercise_weight }} |
         Sets: {{ activity.exercise_sets }} | Reps: {{ activity.exercise_reps }} |
