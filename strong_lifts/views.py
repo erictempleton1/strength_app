@@ -10,7 +10,6 @@ from forms import RegisterForm, LoginForm, StrongLiftsForm
 def index(request):
     return render(request, 'strong_lifts/index.html')
 
-# todo - hide form for users not the profile owner
 # todo - add last workout date check and next workout calculation
 # todo make form more intuitive
 def user_page(request, username):
