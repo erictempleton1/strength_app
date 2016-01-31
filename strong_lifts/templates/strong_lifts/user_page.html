@@ -20,7 +20,7 @@
     <p>
         Exercise name: {{ activity.exercise_name }} | Weight: {{ activity.exercise_weight }} |
         Sets: {{ activity.exercise_sets }} | Reps: {{ activity.exercise_reps }} |
-        Date: {{ activity.add_at|date:"SHORT_DATE_FORMAT" }} |
+        Date: {{ activity.added_at|date:"SHORT_DATE_FORMAT" }} |
         <a href="{% url 'stronglifts:update_exercise' user.username activity.id %}">Edit</a>
     </p>
 {% empty %}
@@ -34,7 +34,7 @@
     <p>
         Exercise name: {{ activity.exercise_name }} | Weight: {{ activity.exercise_weight }} |
         Sets: {{ activity.exercise_sets }} | Reps: {{ activity.exercise_reps }} |
-        Date: {{ activity.add_at|date:"SHORT_DATE_FORMAT" }}
+        Date: {{ activity.added_at|date:"SHORT_DATE_FORMAT" }}
     </p>
 {% empty %}
     <p>No activities found</p>
