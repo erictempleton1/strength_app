@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 
 
 class StrongLifts(models.Model):
-    add_at = models.DateField(default=datetime.datetime.now)
+    added_at = models.DateField(default=datetime.datetime.now)
+    edited_at = models.DateField(blank=True, null=True)
     exercise_name = models.CharField(max_length=200)
     exercise_sets = models.IntegerField(default=0)
     exercise_reps = models.IntegerField(default=0)
