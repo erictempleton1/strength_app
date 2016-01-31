@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from models import StrongLifts
 from django.contrib.auth.models import User
@@ -27,6 +29,7 @@ class StrongLiftsForm(forms.ModelForm):
         ('OH Press', 'OH Press')
     ]
 
+    added_date = forms.DateField(input_formats=['%m/%d/%Y'], initial=datetime.datetime.today)
     exercise_weight = forms.IntegerField(required=True)
     exercise_reps = forms.IntegerField(required=True)
     exercise_sets = forms.IntegerField(required=True)
@@ -36,4 +39,4 @@ class StrongLiftsForm(forms.ModelForm):
 
     class Meta:
         model = StrongLifts
-        fields = ('exercise_name', 'exercise_weight', 'exercise_sets', 'exercise_reps')
+        fields = ('added_date', 'exercise_name', 'exercise_weight', 'exercise_sets', 'exercise_reps')
