@@ -30,7 +30,7 @@ class StrongLiftsForm(forms.ModelForm):
         ('OH Press', 'OH Press')
     ]
 
-    added_date = forms.DateField(required=True, widget=SelectDateWidget(), initial=datetime.date.today)
+    added_at = forms.DateField(required=True, widget=SelectDateWidget(), initial=datetime.date.today)
     exercise_weight = forms.IntegerField(required=True)
     exercise_reps = forms.IntegerField(required=True)
     exercise_sets = forms.IntegerField(required=True)
@@ -38,4 +38,4 @@ class StrongLiftsForm(forms.ModelForm):
 
     class Meta:
         model = StrongLifts
-        fields = ('added_date', 'exercise_name', 'exercise_weight', 'exercise_sets', 'exercise_reps')
+        fields = ('added_at', 'exercise_name', 'exercise_weight', 'exercise_sets', 'exercise_reps')

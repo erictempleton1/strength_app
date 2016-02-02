@@ -23,7 +23,7 @@ def user_page(request, username):
         form = StrongLiftsForm(request.POST)
         if form.is_valid():
             # get form data
-            added_at = form.cleaned_data['added_date']
+            added_at = form.cleaned_data['added_at']
             exercise_name = form.cleaned_data['exercise_name']
             exercise_sets = form.cleaned_data['exercise_sets']
             exercise_reps = form.cleaned_data['exercise_reps']
@@ -47,7 +47,6 @@ def user_page(request, username):
                     }
                   )
 
-# todo - work on getting date to populate or override initial
 def update_exercise(request, username, exercise_id):
     # check that user and exercise exists
     user_obj = get_object_or_404(User, username=username)
@@ -66,6 +65,7 @@ def update_exercise(request, username, exercise_id):
                 }
         )
         if form.is_valid():
+            exercise_edit.added_at = form.cleaned_data['added_at']
             exercise_edit.exercise_name = form.cleaned_data['exercise_name']
             exercise_edit.exercise_sets = form.cleaned_data['exercise_sets']
             exercise_edit.exercise_reps = form.cleaned_data['exercise_reps']
