@@ -8,6 +8,8 @@
 
 <h4>Edit Exercise</h4>
 
+{{ exercise_edit.added_at }}
+
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
