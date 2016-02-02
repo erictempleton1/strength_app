@@ -23,12 +23,14 @@ def user_page(request, username):
         form = StrongLiftsForm(request.POST)
         if form.is_valid():
             # get form data
+            added_at = form.cleaned_data['added_date']
             exercise_name = form.cleaned_data['exercise_name']
             exercise_sets = form.cleaned_data['exercise_sets']
             exercise_reps = form.cleaned_data['exercise_reps']
             exercise_weight = form.cleaned_data['exercise_weight']
 
-            new_workout = StrongLifts(exercise_name=exercise_name,
+            new_workout = StrongLifts(added_at=added_at,
+                                      exercise_name=exercise_name,
                                       exercise_sets=exercise_sets,
                                       exercise_reps=exercise_reps,
                                       exercise_weight=exercise_weight,

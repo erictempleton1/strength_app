@@ -3,6 +3,7 @@ import datetime
 from django import forms
 from models import StrongLifts
 from django.contrib.auth.models import User
+from django.forms.extras.widgets import SelectDateWidget
 
 
 class RegisterForm(forms.ModelForm):
@@ -29,7 +30,7 @@ class StrongLiftsForm(forms.ModelForm):
         ('OH Press', 'OH Press')
     ]
 
-    added_date = forms.DateField(required=True, input_formats=['%m/%d/%Y'])
+    added_date = forms.DateField(required=True, widget=SelectDateWidget(), initial=datetime.date.today)
     exercise_weight = forms.IntegerField(required=True)
     exercise_reps = forms.IntegerField(required=True)
     exercise_sets = forms.IntegerField(required=True)
