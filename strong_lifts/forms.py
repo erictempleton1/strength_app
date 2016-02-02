@@ -29,13 +29,11 @@ class StrongLiftsForm(forms.ModelForm):
         ('OH Press', 'OH Press')
     ]
 
-    added_date = forms.DateField(input_formats=['%m/%d/%Y'], initial=datetime.datetime.today)
+    added_date = forms.DateField(required=True, input_formats=['%m/%d/%Y'])
     exercise_weight = forms.IntegerField(required=True)
     exercise_reps = forms.IntegerField(required=True)
     exercise_sets = forms.IntegerField(required=True)
-    exercise_name = forms.ChoiceField(widget=forms.Select,
-                                              required=True,
-                                              choices=ex_options)
+    exercise_name = forms.ChoiceField(required=True, widget=forms.Select, choices=ex_options)
 
     class Meta:
         model = StrongLifts
