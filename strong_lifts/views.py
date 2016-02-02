@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
 from models import StrongLifts
@@ -47,6 +48,7 @@ def user_page(request, username):
                     }
                   )
 
+@login_required(login_url='/stronglifts/login/')
 def update_exercise(request, username, exercise_id):
     # check that user and exercise exists
     user_obj = get_object_or_404(User, username=username)
