@@ -50,11 +50,9 @@ def user_page(request, username):
 
 @login_required(login_url='/stronglifts/login/')
 def update_exercise(request, username, exercise_id):
-    # check that user and exercise exists
-    user_obj = get_object_or_404(User, username=username)
 
     # get the exercise object and make sure it belongs to the user
-    exercise_edit = get_object_or_404(StrongLifts, id=exercise_id, user=user_obj)
+    exercise_edit = get_object_or_404(StrongLifts, id=exercise_id, user=request.user)
 
     if request.method == 'POST':
         form = StrongLiftsForm(request.POST,
@@ -92,6 +90,10 @@ def update_exercise(request, username, exercise_id):
                         'exercise_id': exercise_id
                     }
                   )
+
+# todo - write this function
+def remove_exercise(request, username, exercise_id):
+    pass
 
 def register_user(request):
     if request.method == 'POST':
