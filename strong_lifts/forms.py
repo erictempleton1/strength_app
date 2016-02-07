@@ -7,9 +7,9 @@ from django.forms.extras.widgets import SelectDateWidget
 
 
 class RegisterForm(forms.ModelForm):
-    username = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-    password = forms.CharField(widget=forms.PasswordInput(), required=True)
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=True)
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=True)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), required=True)
 
     class Meta:
         model = User
@@ -17,8 +17,8 @@ class RegisterForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(required=True)
-    password = forms.CharField(widget=forms.PasswordInput(), required=True)
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=True)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), required=True)
 
 
 class StrongLiftsForm(forms.ModelForm):
