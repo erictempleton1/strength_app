@@ -30,11 +30,28 @@ class StrongLiftsForm(forms.ModelForm):
         ('OH Press', 'OH Press')
     ]
 
-    added_at = forms.DateField(required=True, widget=SelectDateWidget(), initial=datetime.date.today)
-    exercise_weight = forms.IntegerField(required=True)
-    exercise_reps = forms.IntegerField(required=True)
-    exercise_sets = forms.IntegerField(required=True)
-    exercise_name = forms.ChoiceField(required=True, widget=forms.Select, choices=ex_options)
+    exercise_weight = forms.IntegerField(
+            required=True,
+            widget=forms.NumberInput(attrs={'class': 'form-control'})
+    )
+    exercise_reps = forms.IntegerField(
+            required=True,
+            widget=forms.NumberInput(attrs={'class': 'form-control'})
+    )
+    exercise_sets = forms.IntegerField(
+            required=True,
+           widget=forms.NumberInput(attrs={'class': 'form-control'})
+    )
+    exercise_name = forms.ChoiceField(
+            required=True,
+            widget=forms.Select(attrs={'class': 'form-control'}),
+            choices=ex_options
+    )
+    added_at = forms.DateField(
+            required=True,
+            widget=SelectDateWidget(attrs={'class': 'form-control'}),
+            initial=datetime.date.today
+    )
 
     class Meta:
         model = StrongLifts
