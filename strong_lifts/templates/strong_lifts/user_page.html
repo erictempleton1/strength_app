@@ -6,49 +6,51 @@
 
 <h3>User Page - {{ username }}</h3>
 
-<div class="row">
-    <div class="col-md-1"></div>
+
+    {% if username == user.username %}
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Add Exercise</h4>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <button class="btn btn-default" type="submit" value="Save">Save</button>
+            </form>
+        </div>
         <div class="col-md-10">
-
-{% if username == user.username %}
-    <h4>Add Exercise</h4>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <button class="btn btn-default" type="submit" value="Save">Save</button>
-    </form>
-
-<h4>Last Workouts</h4>
-
-    <table class="table table-striped">
-        <thead>
-            <th>Exercise</th>
-            <th>Weight</th>
-            <th>Sets</th>
-            <th>Reps</th>
-            <th>Date</th>
-            <th></th>
-        </thead>
-        <tbody>
-    {% for activity in get_user_activity %}
-            <tr>
-                <td>{{ activity.exercise_name }}</td>
-                <td>{{ activity.exercise_weight }}</td>
-                <td>{{ activity.exercise_sets }}</td>
-                <td>{{ activity.exercise_reps }}</td>
-                <td>{{ activity.added_at|date:"SHORT_DATE_FORMAT" }}</td>
-                <td><a href="{% url 'stronglifts:update_exercise' user.username activity.id %}">Edit</a></td>
+            <h4>Last Workouts</h4>
+        <table class="table table-striped">
+            <thead>
+                <th>Exercise</th>
+                <th>Weight</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Date</th>
+                <th></th>
+            </thead>
+            <tbody>
+        {% for activity in get_user_activity %}
+                <tr>
+                    <td>{{ activity.exercise_name }}</td>
+                    <td>{{ activity.exercise_weight }}</td>
+                    <td>{{ activity.exercise_sets }}</td>
+                    <td>{{ activity.exercise_reps }}</td>
+                    <td>{{ activity.added_at|date:"SHORT_DATE_FORMAT" }}</td>
+                    <td><a href="{% url 'stronglifts:update_exercise' user.username activity.id %}">Edit</a></td>
+                </tr>
+        {% empty %}
+             <tr>
+                <td>No activities found</td>
             </tr>
-    {% empty %}
-         <tr>
-            <td>No activities found</td>
-        </tr>
-    {% endfor %}
-        </tbody>
-    </table>
-
+        {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
 
     {% else %}
+<div class="row">
+    <div class="col-md-12">
     <h4>Last Workouts</h4>
 
     <table class="table table-striped">
@@ -77,9 +79,7 @@
     </table>
 
     {% endif %}
-
-        </div>
-    <div class="col-md-1"></div>
+    </div>
 </div>
 
 {% endblock %}

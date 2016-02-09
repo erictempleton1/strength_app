@@ -18,7 +18,7 @@ def user_page(request, username):
     get_object_or_404(User, username=username)
 
     # get user activities if they do exist
-    get_user_activity = StrongLifts.objects.filter(user__username=username).order_by('-added_at')[0:5]
+    get_user_activity = StrongLifts.objects.filter(user__username=username).order_by('-added_at')[0:15]
 
     if request.method == 'POST':
         form = StrongLiftsForm(request.POST)
