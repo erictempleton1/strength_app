@@ -12,13 +12,12 @@ def index(request):
     return render(request, 'strong_lifts/index.html')
 
 # todo - add last workout date check and next workout calculation
-# todo make form more intuitive
 def user_page(request, username):
     # check that user exists
     get_object_or_404(User, username=username)
 
     # get user activities if they do exist
-    get_user_activity = StrongLifts.objects.filter(user__username=username).order_by('-added_at')[0:15]
+    get_user_activity = StrongLifts.objects.filter(user__username=username).order_by('-added_at')
 
     if request.method == 'POST':
         form = StrongLiftsForm(request.POST)
@@ -43,7 +42,7 @@ def user_page(request, username):
     return render(request, 'strong_lifts/user_page.html',
                   context={
                       'form': form,
-                      'get_user_activity': get_user_activity,
+                      'get_user_activity': get_user_activity[0:15],
                       'username': username
                     }
                   )
@@ -91,9 +90,30 @@ def update_exercise(request, username, exercise_id):
                     }
                   )
 
-# todo - write this function
+# todo - finish up this function
+# todo - create template
+# todo - add to urls
+# todo - using existing form, can fields be un-editable without changing edit view?
 def remove_exercise(request, username, exercise_id):
-    pass
+
+    # get the exercise object and make sure it belongs to the user
+    exercise_to_delete = get_object_or_404(StrongLifts, id=exercise_id, user=request.user)
+
+    if request.method == 'POST':
+        form = StrongLiftsForm(request.POST,
+                               initial={
+                    'added_at': exercise_to_delete.added_at,
+                    'exercise_name': exercise_to_delete.exercise_name,
+                    'exercise_weight': exercise_to_delete.exercise_weight,
+                    'exercise_sets': exercise_to_delete.exercise_sets,
+                    'exercise_reps': exercise_to_delete.exercise_reps
+                }
+        )
+        if form.is_valid():
+            # todo - delete object here
+            return HttpResponseRedirect('/stronglifts/u/{0}'.format(request.user.username))
+
+
 
 def register_user(request):
     if request.method == 'POST':
