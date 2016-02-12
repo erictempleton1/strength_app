@@ -90,30 +90,44 @@ def update_exercise(request, username, exercise_id):
                     }
                   )
 
-# todo - finish up this function
-# todo - create template
-# todo - add to urls
-# todo - using existing form, can fields be un-editable without changing edit view?
+# todo - can we disable date selectors?
 def remove_exercise(request, username, exercise_id):
 
     # get the exercise object and make sure it belongs to the user
     exercise_to_delete = get_object_or_404(StrongLifts, id=exercise_id, user=request.user)
 
     if request.method == 'POST':
-        form = StrongLiftsForm(request.POST,
-                               initial={
+        form = StrongLiftsForm(request.POST)
+        if form.is_valid():
+            exercise_to_delete.delete()
+            return HttpResponseRedirect('/stronglifts/u/{0}'.format(request.user.username))
+    else:
+        form = StrongLiftsForm(
+            initial={
                     'added_at': exercise_to_delete.added_at,
-                    'exercise_name': exercise_to_delete.exercise_name,
                     'exercise_weight': exercise_to_delete.exercise_weight,
                     'exercise_sets': exercise_to_delete.exercise_sets,
-                    'exercise_reps': exercise_to_delete.exercise_reps
+                    'exercise_reps': exercise_to_delete.exercise_reps,
+                    'exercise_name': exercise_to_delete.exercise_name
                 }
         )
-        if form.is_valid():
-            # todo - delete object here
-            return HttpResponseRedirect('/stronglifts/u/{0}'.format(request.user.username))
 
+        # update form field attrs to be readonly
+        # although any changes by the user won't be saved, its a better experience
+        form.fields['exercise_weight'].widget.attrs['readonly'] = 'readonly'
+        form.fields['exercise_sets'].widget.attrs['readonly'] = 'readonly'
+        form.fields['exercise_name'].widget.attrs['readonly'] = 'readonly'
+        form.fields['exercise_reps'].widget.attrs['readonly'] = 'readonly'
+        form.fields['added_at'].widget.attrs['readonly'] = 'readonly'
 
+    return render(request, 'strong_lifts/remove_exercise.html',
+                  context={
+                      'form': form,
+                      'exercise_delete': exercise_to_delete,
+                      'username': username,
+                      'exercise_id': exercise_id
+                  }
+              )
 
 def register_user(request):
     if request.method == 'POST':

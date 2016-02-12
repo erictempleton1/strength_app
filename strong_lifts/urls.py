@@ -10,6 +10,7 @@ urlpatterns = [
         url(r'^register/$', views.register_user, name='register_user'),
         url(r'^login/$', views.login_user, name='login_user'),
         url(r'^logout/$', views.logout_user, name='logout_user'),
-         url(r'^u/(?P<username>\w+)/(?P<exercise_id>\d+)/$', views.update_exercise, name='update_exercise'),
+        url(r'^u/(?P<username>\w+)/(?P<exercise_id>\d+)/update/$', views.update_exercise, name='update_exercise'),
+        url(r'^u/(?P<username>\w+)/(?P<exercise_id>\d+)/remove/$', views.remove_exercise, name='remove_exercise'),
         url(r'^u/(?P<username>\w+)/', views.user_page, name='user_page')
 ]
