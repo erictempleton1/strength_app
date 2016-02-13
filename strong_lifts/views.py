@@ -49,6 +49,8 @@ def user_page(request, username):
                     }
                   )
 
+# todo - this can probably be reworked to include sets, reps, date ect. and only use one query
+# for example - just work with the full query set dict and parse out heaviest info from there
 def current_maxes(user_obj, exercise_query):
     """
     Gets the highest weight for each exercise by first getting distinct exercise names,
@@ -56,7 +58,6 @@ def current_maxes(user_obj, exercise_query):
     This is pretty inefficient for right now.
     """
     max_weight_obj = {}
-    #lifts = StrongLifts.objects.filter(user=user_obj).values('exercise_name').distinct()
     lifts = exercise_query.values('exercise_name').distinct()
     for ex in lifts:
         for key, val in ex.iteritems():
