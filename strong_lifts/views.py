@@ -90,7 +90,6 @@ def update_exercise(request, username, exercise_id):
                     }
                   )
 
-# todo - can we disable date selectors?
 def remove_exercise(request, username, exercise_id):
 
     # get the exercise object and make sure it belongs to the user
@@ -119,6 +118,10 @@ def remove_exercise(request, username, exercise_id):
         form.fields['exercise_name'].widget.attrs['readonly'] = 'readonly'
         form.fields['exercise_reps'].widget.attrs['readonly'] = 'readonly'
         form.fields['added_at'].widget.attrs['readonly'] = 'readonly'
+
+        # disable select form dropdowns
+        form.fields['exercise_name'].widget.attrs['disabled'] = 'disabled'
+        form.fields['added_at'].widget.attrs['disabled'] = 'disabled'
 
     return render(request, 'strong_lifts/remove_exercise.html',
                   context={
