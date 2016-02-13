@@ -1,3 +1,4 @@
+from django.db.models import Max
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -43,9 +44,25 @@ def user_page(request, username):
                   context={
                       'form': form,
                       'get_user_activity': get_user_activity[0:15],
-                      'username': username
+                      'username': username,
+                      'user_maxes': current_maxes(request.user, get_user_activity)
                     }
                   )
+
+def current_maxes(user_obj, exercise_query):
+    """
+    Gets the highest weight for each exercise by first getting distinct exercise names,
+    then aggregating max on each iteration and adding to empty dict.
+    This is pretty inefficient for right now.
+    """
+    max_weight_obj = {}
+    #lifts = StrongLifts.objects.filter(user=user_obj).values('exercise_name').distinct()
+    lifts = exercise_query.values('exercise_name').distinct()
+    for ex in lifts:
+        for key, val in ex.iteritems():
+           max_weight_obj[val] = StrongLifts.objects.filter(
+                   user=user_obj, exercise_name=val).aggregate(ex_max=Max('exercise_weight'))['ex_max']
+    return max_weight_obj
 
 @login_required(login_url='/stronglifts/login/')
 def update_exercise(request, username, exercise_id):
