@@ -163,11 +163,11 @@ def login_user(request):
 
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/stronglifts')
+                return HttpResponseRedirect('/stronglifts/u/{0}/'.format(username))
     else:
         form = LoginForm()
     return render(request, 'strong_lifts/login.html', {'form': form})
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect('/stronglifts')
+    return HttpResponseRedirect('/stronglifts/login/')
