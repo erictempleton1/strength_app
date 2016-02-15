@@ -61,8 +61,7 @@ def current_maxes(user_obj, exercise_query):
     lifts = exercise_query.values('exercise_name').distinct()
     for ex in lifts:
         for key, val in ex.iteritems():
-           max_weight_obj[val] = StrongLifts.objects.filter(
-                   user=user_obj, exercise_name=val).aggregate(ex_max=Max('exercise_weight'))['ex_max']
+           max_weight_obj[val] = exercise_query.aggregate(ex_max=Max('exercise_weight'))['ex_max']
     return max_weight_obj
 
 @login_required(login_url='/stronglifts/login/')
