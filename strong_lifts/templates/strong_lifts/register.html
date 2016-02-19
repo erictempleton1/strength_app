@@ -4,15 +4,17 @@
 
 {% block body %}
 
-<h3>Register</h3>
-
-
-<form action="/stronglifts/register/" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button class="btn btn-default" type="submit" value="Register">Register</button>
-</form>
-
-
+<div class="row">
+    <div class="col-md-4"></div>
+        <div class="col-md-4">
+        <h3>Register</h3>
+        <form action="/stronglifts/register/" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn btn-default" type="submit" value="Register">Register</button>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
 
 {% endblock %}
