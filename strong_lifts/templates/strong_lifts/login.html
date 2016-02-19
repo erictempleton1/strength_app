@@ -3,13 +3,18 @@
 {% block title %}Strong Lifts App - Login{% endblock %}
 
 {% block body %}
+<div class="row">
+    <div class="col-md-4"></div>
+        <div class="col-md-4">
+        <h3>Login</h3>
 
-<h3>Login</h3>
-
-<form action="/stronglifts/login/" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-  <button class="btn btn-default" type="submit" value="Login">Login</button>
-</form>
+        <form action="/stronglifts/login/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+          <button class="btn btn-default" type="submit" value="Login">Login</button>
+        </form>
+        </div>
+    <div class="col-md-4"></div>
+</div>
 
 {% endblock %}
