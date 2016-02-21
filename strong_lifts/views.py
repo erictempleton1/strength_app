@@ -107,6 +107,7 @@ def update_exercise(request, username, exercise_id):
                     }
                   )
 
+@login_required(login_url='/stronglifts/login/')
 def remove_exercise(request, username, exercise_id):
 
     # get the exercise object and make sure it belongs to the user
