@@ -49,7 +49,7 @@ class StrongLiftsForm(forms.ModelForm):
     )
     added_at = forms.DateField(
             required=True,
-            widget=SelectDateWidget(attrs={'class': 'form-control'}),
+            widget=SelectDateWidget(years=range(2015, 2017), attrs={'class': 'form-control'}),
             initial=datetime.date.today
     )
 
