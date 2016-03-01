@@ -59,7 +59,10 @@ def current_maxes(user_obj, exercise_query):
     """
     max_weight_obj = {}
     lifts = exercise_query.values()
-    return lifts
+
+    # get distinct names of all exercises first
+    ex_name = set([x['exercise_name'] for x in lifts])
+    return ex_name
 
 @login_required(login_url='/stronglifts/login/')
 def update_exercise(request, username, exercise_id):
